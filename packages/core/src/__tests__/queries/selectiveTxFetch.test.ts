@@ -2,7 +2,7 @@ import { EthqlOptions, testGraphql, TestMode } from '@ethql/plugin';
 import { CORE_PLUGIN } from '../../plugin';
 
 const testServerOpts: EthqlOptions = { plugins: [CORE_PLUGIN] };
-const { execQuery, prepareContext } = testGraphql({opts: testServerOpts});;
+const { execQuery, prepareContext } = testGraphql({opts: testServerOpts}); 
 
 let context;
 let spy: jest.SpyInstance;

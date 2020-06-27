@@ -12,29 +12,29 @@ export class Options {
   };
 }
 
-const DEFAULT_PROJECT_ID = '70c53878c5a94e7f8d4043df3f8ef755'
+const DEFAULT_PROJECT_ID = '70c53878c5a94e7f8d4043df3f8ef755';
 /* tslint:disable */
 const options: Options | commander.Command = commander
   .version('0.0.1')
   .option(
     '-j, --jsonrpc <endpoint>',
     'specify the JSON-RPC endpoint [https://mainnet.infura.io/v3/${INFURA_ID}]; supported transports: http, https, wss, ipc',
-    `https://mainnet.infura.io/v3/${process.env.INFURA_ID || DEFAULT_PROJECT_ID}`,
+    `https://dev-testnet-v1-0.skalelabs.com`,
   )
   .option(
     '-m, --query-max-size <limit>',
     'specify the maximum number of elements allowed in multiple selection queries',
-    10,
+    '10',
   )
   .option(
     '-p, --port <number>', //
     'specify the port number on which the GraphQL HTTP server will listen on',
-    4000,
+    '4000',
   )
   .option(
     '-b, --batching <enabled>', //
     'enables or disables JSON-RPC batching (default: true)',
-    true,
+    false,
   )
   .option(
     '-c, --caching <enabled>', //

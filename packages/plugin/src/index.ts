@@ -44,7 +44,7 @@ export interface EthqlPlugin {
    * startup.
    */
   dependsOn?: {
-    services?: Array<keyof EthqlServices>;
+    services?: (keyof EthqlServices)[];
   };
 
   /**

@@ -3,8 +3,8 @@ import { Promise as BPromise } from 'bluebird';
 import DataLoader from 'dataloader';
 import net = require('net');
 import * as url from 'url';
-import Web3 = require('web3');
-import { Provider } from 'web3/providers';
+import Web3 from 'web3';
+import { provider } from 'web3-core';
 
 declare module '@ethql/base' {
   interface EthqlServices {
@@ -19,7 +19,7 @@ declare module '@ethql/base' {
 interface Matchers {
   [name: string]: {
     test: (uri: url.UrlWithStringQuery) => boolean;
-    provider: (uri: url.UrlWithStringQuery) => Provider;
+    provider: (uri: url.UrlWithStringQuery) => provider;
   };
 }
 

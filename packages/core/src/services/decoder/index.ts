@@ -9,7 +9,7 @@ declare module '@ethql/base' {
   interface EthqlServiceDefinitions {
     decoder: EthqlServiceDefinition<
       {
-        decoders: Array<DecoderDefinition<any, any>>;
+        decoders: DecoderDefinition<any, any>[];
       },
       DecodingEngine
     >;

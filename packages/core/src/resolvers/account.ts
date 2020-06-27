@@ -2,10 +2,11 @@ import { EthqlContext } from '@ethql/base';
 import { EthqlAccount, EthqlAccountType, StorageAccessor } from '../model';
 
 import Web3 = require('web3');
+import utils from 'web3-utils';
 
 async function balance(obj: EthqlAccount, { unit } /* args */, { services: { eth } }: EthqlContext) {
-  const bal = await eth.fetchBalance(obj);
-  return unit ? Web3.utils.fromWei(bal, unit) : bal;
+  const bal = '' + await eth.fetchBalance(obj);
+  return unit ? utils.fromWei(bal, unit) : bal;
 }
 
 async function code(obj: EthqlAccount, args, { services: { eth } }: EthqlContext): Promise<string> {

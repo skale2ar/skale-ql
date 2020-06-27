@@ -1,7 +1,8 @@
 import * as Debug from 'debug';
 import { GraphQLResolveInfo } from 'graphql';
 import * as _ from 'lodash';
-import Web3 = require('web3');
+import Web3 from 'web3';
+import utils = require('web3-utils');
 import { Hex } from 'web3-utils/types';
 import { EthService, fetchHints, FetchHints } from '..';
 import { EthqlAccount, EthqlBlock, EthqlLog, EthqlTransaction, LogFilter, TransactionStatus } from '../../../model';
@@ -22,7 +23,7 @@ type GetPastLogsOpts = {
  * @return GetPastLogOpts structure
  */
 function formatPastLogsParams(id: Hex): GetPastLogsOpts {
-  let hexId = typeof id === 'number' ? Web3.utils.toHex(id) : id;
+  let hexId = typeof id === 'number' ? utils.toHex(id) : id;
   return { fromBlock: hexId, toBlock: hexId };
 }
 
@@ -36,13 +37,16 @@ export class Web3EthService implements EthService {
 
     debug('fetchBlock %s args: %O', id, hints);
 
+    const bb = await this.web3.eth.getBlock('latest');
+    debug(bb);
+
     if (hints.logs) {
       // getPastLogs does not convert number => hex block numbers, so we have to do it manually.
       let args = formatPastLogsParams(id);
       const logOpts = hints.logFilters ? { ...args, topics: hints.logFilters } : args;
       debug('block logOpts: %O', logOpts);
       const [block, logs] = await Promise.all([
-        this.web3.eth.getBlock(id, hints.transactions),
+        this.web3.eth.getBlock(id, hints.transactions ? true : undefined),
         this.web3.eth.getPastLogs(logOpts),
       ]);
 
@@ -50,7 +54,7 @@ export class Web3EthService implements EthService {
     }
 
     debug('fetching block %s, no logs', id);
-    const block = await this.web3.eth.getBlock(id, hints.transactions);
+    const block = await this.web3.eth.getBlock(id, hints.transactions ? true : undefined);
     return block && new EthqlBlock(block);
   }
 
@@ -65,7 +69,7 @@ export class Web3EthService implements EthService {
   }
 
   public async fetchBalance({ address }: EthqlAccount): Promise<number> {
-    return address && this.web3.eth.getBalance(address);
+    return address && parseInt(await this.web3.eth.getBalance(address), 10);
   }
 
   public async fetchCode({ address }: EthqlAccount): Promise<string> {

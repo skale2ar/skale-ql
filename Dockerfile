@@ -1,11 +1,11 @@
 ##########################################################################
 #
-# Builder image: 
+# Builder image:
 # Runs module install and compiles TypeScript.
 #
 ##########################################################################
 
-FROM node:10 as builder
+FROM node:14 as builder
 
 RUN mkdir -p /ethql
 WORKDIR /ethql
@@ -14,7 +14,7 @@ WORKDIR /ethql
 COPY package.json yarn.lock  ./
 RUN yarn install
 
-# COPY codebase 
+# COPY codebase
 COPY . ./
 
 # Install Lerna config
@@ -26,7 +26,7 @@ RUN yarn build:ts
 
 ##########################################################################
 #
-# Production image: 
+# Production image:
 # Contains only production dependencies and compiled JS.
 #
 ##########################################################################

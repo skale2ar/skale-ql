@@ -63,5 +63,5 @@ export function fetchHints(info: GraphQLResolveInfo): FetchHints {
     transactions: !!txFields.length,
     logs: !!logsFields.length || !!withLogFilters.length,
     logFilters: logFilters[0]
-  }
+  };
 }

@@ -1,8 +1,8 @@
 import { Overwrite } from '@ethql/base/dist/utils';
 import { List } from 'immutable';
 import * as _ from 'lodash';
-import { Block, Transaction } from 'web3/eth/types';
-import { Log } from 'web3/types';
+import { Log } from 'web3-core/types';
+import { Block, Transaction } from 'web3-eth/types';
 
 /**
  * Account types.
@@ -103,9 +103,9 @@ export class EthqlBlock implements EthqlBlock {
 
     if (logs) {
       const logsByTxIdx = _.groupBy(logs, l => l.transactionIndex);
-      this.transactions = transactions.map(tx => new EthqlTransaction(tx, logsByTxIdx[tx.transactionIndex] || []));
+      this.transactions = (transactions as Transaction[]).map(tx => new EthqlTransaction(tx, logsByTxIdx[tx.transactionIndex] || []));
     } else {
-      this.transactions = transactions.map(tx => new EthqlTransaction(tx));
+      this.transactions = (transactions as Transaction[]).map(tx => new EthqlTransaction(tx));
     }
   }
 

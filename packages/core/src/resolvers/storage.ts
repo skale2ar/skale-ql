@@ -1,14 +1,12 @@
 import { StorageAccessor, StorageAccessorElement, StorageMapKeyType, StorageObjectType } from '../model';
 
 import { EthqlContext } from '@ethql/base';
-import numberToBN from 'number-to-bn';
-import Web3 = require('web3');
-const {
+import {
   leftPad,
   sha3,
-  toHex,
   toBN,
-} = Web3.utils;
+  toHex,
+} from 'web3-utils';
 const pad64 = val => leftPad(toHex(val), 64, '0').slice(2);
 
 function computeSlot({ selector }: StorageAccessorElement, base: string, prevType?: StorageObjectType): string {

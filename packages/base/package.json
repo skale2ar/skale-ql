@@ -36,9 +36,11 @@
   "dependencies": {
     "@types/graphql": "^14.0.7",
     "@types/node": "^11.9.4",
+    "commander": "^5.1.0",
     "deepmerge": "^3.2.0",
     "graphql": "^14.1.1",
-    "graphql-tools": "^4.0.4"
+    "graphql-tools": "^4.0.4",
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "@types/debug": "^4.1.2",

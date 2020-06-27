@@ -34,7 +34,7 @@
     "dev": "lerna link && lerna run --stream dev",
     "debug": "lerna link && lerna run --stream debug",
     "build": "npm run build:docker",
-    "build:ts": "lerna link && lerna run --stream build:ts",
+    "build:ts": "rm packages/*/tsconfig.tsbuildinfo && lerna link && lerna run --stream build:ts",
     "build:docker": "docker image build -t ethql .",
     "lint": "npm-run-all lint:ts lint:rest",
     "lint:ts": "tslint --fix -t stylish -c tslint.json -p tsconfig.json && prettier --parser typescript --write 'packages/*/src/**/*.ts'",
@@ -61,6 +61,7 @@
   ],
   "devDependencies": {
     "@types/jest": "^23.1.0",
+    "@types/node": "^14.0.14",
     "copyfiles": "^2.0.0",
     "dotenv": "^6.0.0",
     "dotenv-cli": "^1.4.0",

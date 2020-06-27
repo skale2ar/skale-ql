@@ -12,7 +12,7 @@ const testServers: EthqlServer[] = [];
 
 const defaultOpts: EthqlOptions = {
   config: {
-    jsonrpc: 'https://mainnet.infura.io/v3/70c53878c5a94e7f8d4043df3f8ef755',
+    jsonrpc: 'https://dev-testnet-v1-0.skalelabs.com',
     queryMaxSize: 10,
     port: 0,
     validation: {
