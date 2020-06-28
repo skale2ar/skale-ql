@@ -61,7 +61,7 @@ export class EthqlServer {
 
     return new ApolloServer({
       schema: result.schema,
-      context: () => new EthqlContext(this.opts.config, result.serviceFactories),
+      context: ({req}) => new EthqlContext(req, this.opts.config, result.serviceFactories),
       playground,
     });
   }

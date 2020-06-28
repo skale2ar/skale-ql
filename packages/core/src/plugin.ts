@@ -4,6 +4,8 @@ import coreSchema from './schema';
 import { SimpleDecodingEngine } from './services/decoder/impl/simple';
 import { Web3EthService } from './services/eth-service/impl/web3-eth-service';
 import { initWeb3 } from './services/web3';
+import * as Debug from "debug";
+const debug = Debug.debug('ethql:plugin');
 
 export const CORE_PLUGIN: EthqlPluginFactory = opts => {
   return {
@@ -14,7 +16,7 @@ export const CORE_PLUGIN: EthqlPluginFactory = opts => {
     serviceDefinitions: {
       web3: {
         implementation: {
-          factory: () => initWeb3(opts.config),
+          factory: () => context => initWeb3(context, opts.config),
         },
       },
       eth: {

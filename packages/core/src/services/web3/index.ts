@@ -1,10 +1,12 @@
-import { EthqlServiceDefinition, Options } from '@ethql/base';
+import {EthqlContext, EthqlServiceDefinition, Options} from '@ethql/base';
 import { Promise as BPromise } from 'bluebird';
 import DataLoader from 'dataloader';
 import net = require('net');
 import * as url from 'url';
 import Web3 from 'web3';
 import { provider } from 'web3-core';
+import * as Debug from "debug";
+const debug = Debug.debug('ethql:services');
 
 declare module '@ethql/base' {
   interface EthqlServices {
@@ -47,10 +49,9 @@ const matchers: Matchers = {
  * @param uri URI of the JSON-RPC endpoint. Supported transports: HTTP(S), WS(S), IPC.
  * @return A thunk that, when called, returns a web3 instance for the request.
  */
-export function initWeb3(config: Options): () => Web3 {
+export function initWeb3(context: EthqlContext, config: Options): Web3 {
   let web3: Web3;
-  const uri = config.jsonrpc;
-
+  const uri = context.req.query.jsonrpc as string || config.jsonrpc;
   if (!uri) {
     throw new Error('Cannot initialize web3 with an empty URI');
   }
@@ -68,7 +69,7 @@ export function initWeb3(config: Options): () => Web3 {
   console.log(`JSON-RPC (web3): Using ${name} provider with endpoint: ${uri}`);
   web3 = new Web3(provider(u));
 
-  return config.batching ? () => batchingProxy(web3, config) : () => web3;
+  return web3;
 }
 
 /**

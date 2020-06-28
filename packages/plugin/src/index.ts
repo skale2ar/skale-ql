@@ -7,7 +7,6 @@ import {
 import { bootstrap, EthqlOptions } from './bootstrap';
 
 import { IResolvers } from 'graphql-tools';
-import { testGraphql, TestMode, TestRunnerOpts } from './test-utils';
 
 export interface EthqlPlugin {
   /**
@@ -63,4 +62,4 @@ export interface EthqlPlugin {
 }
 
 export type EthqlPluginFactory = (opts: EthqlOptions) => EthqlPlugin;
-export { bootstrap, testGraphql, TestRunnerOpts, TestMode, EthqlOptions };
+export { bootstrap, EthqlOptions };

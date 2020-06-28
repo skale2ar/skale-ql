@@ -37,9 +37,6 @@ export class Web3EthService implements EthService {
 
     debug('fetchBlock %s args: %O', id, hints);
 
-    const bb = await this.web3.eth.getBlock('latest');
-    debug(bb);
-
     if (hints.logs) {
       // getPastLogs does not convert number => hex block numbers, so we have to do it manually.
       let args = formatPastLogsParams(id);
