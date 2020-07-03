@@ -143,3 +143,11 @@ export class StorageAccessor {
 export type TransactionStatus = 'PENDING' | 'SUCCESS' | 'FAILED';
 
 export type LogFilter = { topics: string[][] };
+
+export class EthqlSkaleFile {
+  constructor(public path: string, public data: string) {}
+
+  public equals(file: EthqlSkaleFile) {
+    return this.data === file.data;
+  }
+}

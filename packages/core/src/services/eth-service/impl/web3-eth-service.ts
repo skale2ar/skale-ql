@@ -1,3 +1,4 @@
+import SkaleFileStorage from '@skalenetwork/filestorage.js';
 import * as Debug from 'debug';
 import { GraphQLResolveInfo } from 'graphql';
 import * as _ from 'lodash';
@@ -5,7 +6,15 @@ import Web3 from 'web3';
 import utils = require('web3-utils');
 import { Hex } from 'web3-utils/types';
 import { EthService, fetchHints, FetchHints } from '..';
-import { EthqlAccount, EthqlBlock, EthqlLog, EthqlTransaction, LogFilter, TransactionStatus } from '../../../model';
+import {
+  EthqlAccount,
+  EthqlBlock,
+  EthqlLog,
+  EthqlSkaleFile,
+  EthqlTransaction,
+  LogFilter,
+  TransactionStatus
+} from '../../../model';
 
 const debug = Debug.debug('ethql:web3');
 
@@ -105,4 +114,9 @@ export class Web3EthService implements EthService {
     return receipt.status === undefined ? null : receipt.status ? 'SUCCESS' : 'FAILED';
   }
 
+  public async fetchSkaleFileStorage(path: string): Promise<EthqlSkaleFile> {
+    const skaleFileStorage = new SkaleFileStorage(this.web3);
+    const buffer = await skaleFileStorage.downloadToBuffer(path);
+    return new EthqlSkaleFile(path, buffer.toString('base64'));
+  }
 }

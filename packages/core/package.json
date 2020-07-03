@@ -36,6 +36,7 @@
   "dependencies": {
     "@ethql/base": "^0.1.2",
     "@ethql/plugin": "^0.1.2",
+    "@skalenetwork/filestorage.js": "github:skale2ar/filestorage.js#develop",
     "@types/debug": "^4.1.2",
     "@types/graphql": "^14.0.7",
     "abi-decoder": "^1.2.0",

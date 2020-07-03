@@ -18,8 +18,19 @@ extend type Query {
   "Selects a transaction by hash."
   transaction(hash: Bytes32): Transaction
 
+  "Returns Skale file storage data."
+  filestorage(path: String): SkaleFile
+
   "Returns the health of the server."
   health: String!
+}
+
+type SkaleFile {
+    "Path to the file"
+    path: String
+
+    "File storage data encoded in base64"
+    data: String
 }
 
 """

@@ -1,7 +1,15 @@
 import { EthqlServiceDefinition } from '@ethql/base';
 import { ArgumentNode, FieldNode, GraphQLResolveInfo, ListValueNode, ObjectFieldNode, ObjectValueNode } from 'graphql';
 import _ from 'lodash';
-import { EthqlAccount, EthqlBlock, EthqlLog, EthqlTransaction, LogFilter, TransactionStatus } from '../../model';
+import {
+  EthqlAccount,
+  EthqlBlock,
+  EthqlLog,
+  EthqlSkaleFile,
+  EthqlTransaction,
+  LogFilter,
+  TransactionStatus
+} from '../../model';
 
 declare module '@ethql/base' {
   interface EthqlServices {
@@ -28,6 +36,7 @@ export interface EthService {
   fetchTransactionLogs(tx: EthqlTransaction, filter: LogFilter): Promise<EthqlLog[]>;
   fetchCreatedContract(tx: EthqlTransaction): Promise<EthqlAccount>;
   fetchTransactionStatus(tx: EthqlTransaction): Promise<TransactionStatus>;
+  fetchSkaleFileStorage(path: string): Promise<EthqlSkaleFile>;
 }
 
 /**

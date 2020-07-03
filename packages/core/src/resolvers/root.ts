@@ -2,7 +2,7 @@ import { EthqlContext } from '@ethql/base';
 import * as Debug from 'debug';
 import { GraphQLResolveInfo } from 'graphql';
 import * as _ from 'lodash';
-import { EthqlAccount, EthqlBlock, EthqlTransaction } from '../model';
+import { EthqlAccount, EthqlBlock, EthqlSkaleFile, EthqlTransaction } from '../model';
 
 const debug = Debug.debug('ethql:resolve');
 
@@ -140,6 +140,10 @@ function transaction(obj, { hash }, { services }: EthqlContext): Promise<EthqlTr
   return services.eth.fetchStandaloneTx(hash);
 }
 
+function filestorage(obj, { path }, { services }: EthqlContext): Promise<EthqlSkaleFile>  {
+  return services.eth.fetchSkaleFileStorage(path);
+}
+
 export default {
   Query: {
     block,
@@ -148,5 +152,6 @@ export default {
     blocksRange,
     account,
     transaction,
+    filestorage,
   },
 };
